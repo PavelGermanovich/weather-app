@@ -24,7 +24,7 @@ public class WeatherDto {
     private void unpackNestedLocation(Map<String, String> location) {
         this.location = location.get("name");
     }
-    
+
     @JsonProperty("current")
     private void unpackNestedCurrentWeather(Map<String, Object> currentWeather) {
         this.weatherCondition = ((Map<String, String>) currentWeather.get("condition")).get("text");
