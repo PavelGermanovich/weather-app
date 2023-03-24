@@ -5,14 +5,14 @@ This is a weather analysis application developed for Senla.
 
 
 ## Details
-The application runs on port 8091 and fetches weather data from an external API every 10000 ms (1 sec) by default. Java 11 used.
+The application runs on port 8091 and fetches weather data from an external API every 10000 ms (1 sec) by default. **Java 11 used**.
 The fetch rate can be changed in the application.properties file. 
-The city for each fetched data is specified as Minsk by default, but can also be changed in the application.properties file using the app.weather.city property.
+The city for each fetched data is specified as **Minsk** by default, but can also be changed in the application.properties file using the **app.weather.city** property.
 
 
 The application uses an H2 embedded database to store fetched data. The database is created and saved locally in the target folder. If the database does not exist, the application creates it, otherwise it uses the existing one.
 
-Docker image of the application created and available in docker hub (https://hub.docker.com/repository/docker/german2019docker/weather-app/general).
+**Docker image** of the application created and available in docker hub (https://hub.docker.com/repository/docker/german2019docker/weather-app/general).
 To run container locally on port 8091 using this image use command: 
 #### docker run -p 8091:8091 german2019docker/weather-app
 
