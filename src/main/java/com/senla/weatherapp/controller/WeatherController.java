@@ -6,13 +6,13 @@ import com.senla.weatherapp.dto.DateRangeDto;
 import com.senla.weatherapp.dto.ResponseMessageDto;
 import com.senla.weatherapp.entity.Weather;
 import com.senla.weatherapp.service.WeatherService;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,10 +36,10 @@ public class WeatherController {
         Optional<Weather> lastUpdatedWeather = weatherService.getCurrentWeather(defaultCity);
         if (lastUpdatedWeather.isPresent()) {
             return ResponseEntity.ok(weatherConverter.convertToDto(lastUpdatedWeather.get()));
-        } else {
-            ResponseMessageDto errorDto = new ResponseMessageDto("Weather data not found in DB for the city " + defaultCity);
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorDto);
         }
+        ResponseMessageDto errorDto = new ResponseMessageDto("Weather data not found in DB for the city " + defaultCity);
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorDto);
+
     }
 
     @PostMapping("/average")
@@ -53,13 +53,17 @@ public class WeatherController {
         if (weatherList.isEmpty()) {
             ResponseMessageDto responseMessageDto = new ResponseMessageDto("No weather data found for specified date range");
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(responseMessageDto);
-        } else {
-            AverageWeatherDataResponse dataResponse = new AverageWeatherDataResponse();
-            dataResponse.setAverageTemp(weatherList.stream().mapToDouble(Weather::getTemperature).average().getAsDouble());
-            dataResponse.setAverageWindSpeed(weatherList.stream().mapToDouble(Weather::getWindSpeedMtrHr).average().getAsDouble());
-            dataResponse.setAverageHumidity(weatherList.stream().mapToDouble(Weather::getHumidity).average().getAsDouble());
-            dataResponse.setPressureMb(weatherList.stream().mapToDouble(Weather::getPressureMb).average().getAsDouble());
-            return ResponseEntity.ok(dataResponse);
         }
+
+        AverageWeatherDataResponse dataResponse = new AverageWeatherDataResponse();
+        dataResponse.setAverageTemp(weatherList.stream().mapToDouble(Weather::getTemperature)
+                .average().orElse(0.0));
+        dataResponse.setAverageWindSpeed(weatherList.stream().mapToDouble(Weather::getWindSpeedMtrHr)
+                .average().orElse(0.0));
+        dataResponse.setAverageHumidity(weatherList.stream().mapToDouble(Weather::getHumidity).average()
+                .orElse(0.0));
+        dataResponse.setPressureMb(weatherList.stream().mapToDouble(Weather::getPressureMb).average()
+                .orElse(0.0));
+        return ResponseEntity.ok(dataResponse);
     }
 }

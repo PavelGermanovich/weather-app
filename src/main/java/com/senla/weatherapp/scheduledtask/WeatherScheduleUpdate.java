@@ -6,13 +6,14 @@ import com.senla.weatherapp.entity.Weather;
 import com.senla.weatherapp.exception.WeatherDataRetrievalException;
 import com.senla.weatherapp.service.WeatherExternalApiService;
 import com.senla.weatherapp.service.WeatherService;
-import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+
+import javax.transaction.Transactional;
 
 @Component
 public class WeatherScheduleUpdate {

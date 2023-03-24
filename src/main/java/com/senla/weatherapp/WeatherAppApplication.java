@@ -19,5 +19,4 @@ public class WeatherAppApplication {
 	public RestTemplate restTemplate(RestTemplateBuilder builder) {
 		return builder.build();
 	}
-
 }

@@ -5,7 +5,7 @@ This is a weather analysis application developed for Senla.
 
 
 ## Details
-The application runs on port 8091 and fetches weather data from an external API every 10000 ms (1 sec) by default. 
+The application runs on port 8091 and fetches weather data from an external API every 10000 ms (1 sec) by default. Java 11 used.
 The fetch rate can be changed in the application.properties file. 
 The city for each fetched data is specified as Minsk by default, but can also be changed in the application.properties file using the app.weather.city property.
 
@@ -29,7 +29,10 @@ This endpoint returns the most up-to-date weather data for the specified city fr
 
 ### POST - /weather/average
 
-This endpoint calculates and returns the average weather data for the specified date range. The date range should be provided in the request body as a JSON object with to and from properties in the format dd-MM-yyyy.
+This endpoint calculates and returns the average weather data for the specified date range.
+The date range should be provided in the request body as a JSON object with to and from properties in the format "dd-MM-yyyy". 
+From and To date are included.
+
 
 Request Json:
 ```

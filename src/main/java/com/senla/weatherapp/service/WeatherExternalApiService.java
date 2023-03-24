@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -41,16 +40,15 @@ public class WeatherExternalApiService {
         ResponseEntity<String> response = restTemplate.exchange(builder.toUriString(), HttpMethod.GET,
                 new HttpEntity<>(headers), String.class);
 
-        if (response.getBody() != null) {
-            try {
-                return new ObjectMapper().readerFor(WeatherDto.class).readValue(response.getBody());
-            } catch (JsonProcessingException e) {
-                logger.error("Error deserializing response body from External Weather API: {}", e.getMessage());
-                throw new WeatherDataRetrievalException("Error processing weather data for the following country" + country, e);
-            }
-        } else {
+        if (response.getBody() == null) {
             logger.warn("Received null response body from External Weather API");
             throw new WeatherDataRetrievalException("Received null response body from API");
+        }
+        try {
+            return new ObjectMapper().readerFor(WeatherDto.class).readValue(response.getBody());
+        } catch (JsonProcessingException e) {
+            logger.error("Error deserializing response body from External Weather API: {}", e.getMessage());
+            throw new WeatherDataRetrievalException("Error processing weather data for the following country" + country, e);
         }
     }
 }

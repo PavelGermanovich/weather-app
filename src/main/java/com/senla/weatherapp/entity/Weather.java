@@ -1,9 +1,8 @@
 package com.senla.weatherapp.entity;
 
-import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.Hibernate;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -33,13 +32,18 @@ public class Weather {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        Weather that = (Weather) o;
-        return id != null && Objects.equals(id, that.id);
+        if (o == null || getClass() != o.getClass()) return false;
+        Weather weather = (Weather) o;
+        return Double.compare(weather.temperature, temperature) == 0 && Double
+                .compare(weather.windSpeedMtrHr, windSpeedMtrHr) == 0 && Double
+                .compare(weather.pressureMb, pressureMb) == 0 && humidity == weather.humidity && id
+                .equals(weather.id) && weatherCondition.equals(weather.weatherCondition) && location
+                .equals(weather.location) && weatherDate.equals(weather.weatherDate);
     }
 
     @Override
     public int hashCode() {
-        return getClass().hashCode();
+        return Objects.hash(id, temperature, windSpeedMtrHr, pressureMb, humidity, weatherCondition,
+                location, weatherDate);
     }
 }
