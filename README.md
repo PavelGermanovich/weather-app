@@ -9,7 +9,7 @@ The application runs on port 8091 and fetches weather data from an external API 
 The fetch rate can be changed in the application.properties file. 
 The city for each fetched data is specified as **Minsk** by default, but can also be changed in the application.properties file using the **app.weather.city** property.
 
-
+Lombok used so **annotation processing** should be enabled in intellij
 The application uses an H2 embedded database to store fetched data. The database is created and saved locally in the target folder. If the database does not exist, the application creates it, otherwise it uses the existing one.
 
 **Docker image** of the application created and available in docker hub (https://hub.docker.com/repository/docker/german2019docker/weather-app/general).
