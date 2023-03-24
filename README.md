@@ -11,6 +11,11 @@ The city for each fetched data is specified as Minsk by default, but can also be
 
 
 The application uses an H2 embedded database to store fetched data. The database is created and saved locally in the target folder. If the database does not exist, the application creates it, otherwise it uses the existing one.
+
+Docker image of the application created and available in docker hub (https://hub.docker.com/repository/docker/german2019docker/weather-app/general).
+To run container locally on port 8091 using this image use command: 
+#### docker run -p 8091:8091 german2019docker/weather-app
+
 ## Usage
 
 The following endpoints are available in the application:
